@@ -17,6 +17,8 @@ public class CommandsMenu extends AbstractMenu {
 
 		initMenuItem(this, "menu.commands.details", null, null, actions.details);
 		initMenuItem(this, null, null, null, null);
+		initMenuItem(this, "menu.commands.mapAdd", null, null, actions.mapAddListener, true);
+		initMenuItem(this, null, null, null, null);
 		initMenuItem(this, "menu.commands.rescan", "Ctrl+R", SWT.MOD1 | 'R', actions.rescan, true);
 		initMenuItem(this, "menu.commands.delete", Platform.MAC_OS ? "⌦" : "Del", /* this is not a global key binding */ null, actions.delete, true);
 		initMenuItem(this, null, null, null, null);

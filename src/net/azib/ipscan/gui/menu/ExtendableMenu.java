@@ -13,6 +13,14 @@ class ExtendableMenu extends Menu {
 		super(parent, style);
 	}
 
+	static MenuItem initMenuItem(Menu parent, String label ) {
+		MenuItem menuItem = new MenuItem(parent, label == null ? SWT.SEPARATOR : SWT.PUSH);
+		if (label != null)
+			menuItem.setText(label);
+		menuItem.setEnabled(false);
+		return menuItem;
+	}
+
 	static MenuItem initMenuItem(Menu parent, String label, String acceleratorText, Integer accelerator, Listener listener) {
 		return initMenuItem(parent, label, acceleratorText, accelerator, listener, false);
 	}

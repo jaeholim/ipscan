@@ -22,4 +22,13 @@ public class GoogleAnalyticsTest {
 					"net.azib.ipscan.util.GoogleAnalyticsTest.extractFirstStackFrameWithCause:19",
 				GoogleAnalytics.extractFirstStackFrame(new IllegalArgumentException("Kaboom", new IOException("The real stuff"))));
 	}
+
+	@Test
+	public void test() {
+		String str="a,b,";
+		System.out.println("str[] length : "+str.split(",").length);
+		for(String s : str.split(",")) {
+			System.out.println("s : "+s);
+		}
+	}
 }

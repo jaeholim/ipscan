@@ -29,6 +29,9 @@ public class GUIConfig {
 	public boolean isMainWindowMaximized;
 	
 	public int[] detailsWindowSize;
+	public int[] addMapWindowSize;
+
+	public String mapPath;
 	
 	public enum DisplayMethod {ALL, ALIVE, PORTS}
 
@@ -50,6 +53,8 @@ public class GUIConfig {
 		isMainWindowMaximized = preferences.getBoolean("windowMaximized", false);
 		mainWindowSize = new int[] {preferences.getInt("windowWidth", 800), preferences.getInt("windowHeight", 450)};
 		detailsWindowSize = new int[] {preferences.getInt("detailsWidth", 400), preferences.getInt("detailsHeight", 300)};
+		addMapWindowSize = new int[] {preferences.getInt("addMapWidth", 400), preferences.getInt("addMapHeight", 300)};
+		mapPath = preferences.get("mapPath", "C:/test.png");
 	}
 
 	public void store() {
@@ -70,10 +75,19 @@ public class GUIConfig {
 		
 		preferences.putInt("detailsWidth", detailsWindowSize[0]);
 		preferences.putInt("detailsHeight", detailsWindowSize[1]);
+
+		preferences.putInt("addMapWidth", addMapWindowSize[0]);
+		preferences.putInt("addMapHeight", addMapWindowSize[1]);
+
+		preferences.put("mapPath", mapPath);
 	}
 
 	public Point getDetailsWindowSize() {
 		return new Point(detailsWindowSize[0], detailsWindowSize[1]);
+	}
+
+	public Point getAddMapWindowSize() {
+		return new Point(addMapWindowSize[0], addMapWindowSize[1]);
 	}
 
 	public void setDetailsWindowSize(Point size) {
@@ -114,5 +128,9 @@ public class GUIConfig {
 	 */
 	public void setColumnWidth(Fetcher fetcher, int width) {
 		preferences.putInt("columnWidth." + fetcher.getId(), width);
+	}
+
+	public String getMapPath() {
+		return this.mapPath;
 	}
 }

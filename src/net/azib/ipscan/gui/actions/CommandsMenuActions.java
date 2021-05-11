@@ -12,10 +12,7 @@ import net.azib.ipscan.core.UserErrorException;
 import net.azib.ipscan.core.state.ScanningState;
 import net.azib.ipscan.core.state.StateMachine;
 import net.azib.ipscan.fetchers.FetcherRegistry;
-import net.azib.ipscan.gui.DetailsWindow;
-import net.azib.ipscan.gui.EditOpenersDialog;
-import net.azib.ipscan.gui.ResultTable;
-import net.azib.ipscan.gui.StatusBar;
+import net.azib.ipscan.gui.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -33,6 +30,7 @@ import org.eclipse.swt.widgets.MenuItem;
  */
 public class CommandsMenuActions {
 	public Details details;
+	public MapAddListener mapAddListener;
 	public Delete delete;
 	public Rescan rescan;
 	public CopyIP copyIP;
@@ -41,8 +39,9 @@ public class CommandsMenuActions {
 	public EditOpeners editOpeners;
 	public SelectOpener selectOpener;
 
-	public CommandsMenuActions(Details details, Delete delete, Rescan rescan, CopyIP copyIP, CopyIPDetails copyIPDetails, ShowOpenersMenu showOpenersMenu, EditOpeners editOpeners, SelectOpener selectOpener) {
+	public CommandsMenuActions(Details details, MapAddListener mapAddListener, Delete delete, Rescan rescan, CopyIP copyIP, CopyIPDetails copyIPDetails, ShowOpenersMenu showOpenersMenu, EditOpeners editOpeners, SelectOpener selectOpener) {
 		this.details = details;
+		this.mapAddListener = mapAddListener;
 		this.delete = delete;
 		this.rescan = rescan;
 		this.copyIP = copyIP;
@@ -82,6 +81,25 @@ public class CommandsMenuActions {
 				event.doit = false;
 				checkSelection(resultTable);
 				detailsWindow.open(); 
+			}
+		}
+	}
+
+	public static class MapAddListener implements Listener {
+		private final ResultTable resultTable;
+		private final MapAddWindow mapAddWindow;
+
+		public MapAddListener(ResultTable resultTable, MapAddWindow mapAddWindow) {
+			this.resultTable = resultTable;
+			this.mapAddWindow = mapAddWindow;
+		}
+
+		public void handleEvent(Event event) {
+			// activate only if something is selected
+			if (event.type == SWT.Selection || (resultTable.getSelectionIndex() >= 0 && (event.type == SWT.MouseDoubleClick || event.detail == SWT.TRAVERSE_RETURN))) {
+				event.doit = false;
+				checkSelection(resultTable);
+				mapAddWindow.open();
 			}
 		}
 	}
