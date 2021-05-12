@@ -139,7 +139,8 @@ public class MainWindow {
 	private void initMapCanvas(MapCanvas mapCanvas, MapPaintListener mapPaintListener) {
 		mapCanvas.setParent(sashForm);
 //		mapCanvas.setLayoutData(formData(new FormAttachment(resultTable), new FormAttachment(100), new FormAttachment(feederArea), null));
-		mapCanvas.addPaintListener(mapPaintListener);
+//		mapCanvas.addPaintListener(mapPaintListener);
+
 	}
 
 	/**

@@ -38,21 +38,21 @@ public class MapPaintListener implements PaintListener {
 		int height = e.height;
 
 		if (imageData != null) {
-			float scale = 1.0f;
-			if (width != imageData.width) {
-				scale = width / (float) imageData.width;
-			}
-			if (height != imageData.height) {
-				float tmpScale = height / (float) imageData.height;
-				scale = scale < tmpScale ? scale : tmpScale;
-			}
-			if (scale > 1.0) {
-				Image scaledImage = new Image(e.display, imageData.scaledTo(Math.round(imageData.width * scale), Math.round(imageData.height * scale)));
-				int imgWidth = scaledImage.getImageData().width;
-				int imgHeight = scaledImage.getImageData().height;
-				int bx = height / 2 - imgWidth / 2;
-				int by = height / 2 - imgHeight / 2;
-				System.out.println("bx : "+bx+", by : "+by+", width : "+width+", height : "+height+", mgWidth : "+imgWidth+", imgHeight : "+imgHeight);
+//			float scale = 1.0f;
+//			if (width != imageData.width) {
+//				scale = width / (float) imageData.width;
+//			}
+//			if (height != imageData.height) {
+//				float tmpScale = height / (float) imageData.height;
+//				scale = scale < tmpScale ? scale : tmpScale;
+//			}
+//			if (scale > 1.0) {
+//				Image scaledImage = new Image(e.display, imageData.scaledTo(Math.round(imageData.width * scale), Math.round(imageData.height * scale)));
+//				int imgWidth = scaledImage.getImageData().width;
+//				int imgHeight = scaledImage.getImageData().height;
+//				int bx = height / 2 - imgWidth / 2;
+//				int by = height / 2 - imgHeight / 2;
+//				System.out.println("bx : "+bx+", by : "+by+", width : "+width+", height : "+height+", mgWidth : "+imgWidth+", imgHeight : "+imgHeight);
 
 				// Draw2d 시작
 				Figure root = new Figure();
@@ -61,16 +61,16 @@ public class MapPaintListener implements PaintListener {
 				LightweightSystem lws = new LightweightSystem(canvas);
 				lws.setContents(root);
 
-				Figure imageFigure = new ImageFigure(scaledImage);
+				Figure imageFigure = new ImageFigure(new Image(e.display, imageData.scaledTo(Math.round(imageData.width), Math.round(imageData.height))));
 				root.add(imageFigure, new Rectangle(0,0,-1,-1));
 
-				float finalScale = scale;
+//				float finalScale = scale;
 				mapItemConfig.getItems().forEach(v -> {
 					String key = mapItemConfig.getItemInfo(v, "ip");
 					Figure f = itemFigure(mapItemConfig.getItemInfo(v, "name"), key, ColorConstants.red);
 					mapItemConfig.setFigure(key, f);
 					Point p = mapItemConfig.getItemPoint(v);
-					root.add(f,	new Rectangle((int)(p.x * finalScale), (int)(p.y * finalScale), -1, -1) );
+//					root.add(f,	new Rectangle((int)(p.x * finalScale), (int)(p.y * finalScale), -1, -1) );
 				});
 				mapItemConfig.getItems().forEach(v -> {
 					Figure f1 = mapItemConfig.getFigure(mapItemConfig.getItemInfo(v, "ip"));
@@ -83,7 +83,7 @@ public class MapPaintListener implements PaintListener {
 				});
 				// Draw2d 종료
 
-			}
+//			}
 		}
 	}
 
